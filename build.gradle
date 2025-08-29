@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.99'
     id 'idea'
+
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -19,6 +20,9 @@ group = mod_group_id
 
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
+    maven {
+        url = uri("https://mvn.devos.one/releases")
+    }
 }
 
 base {
@@ -118,6 +122,8 @@ dependencies {
     // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
     // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
     // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    //modImplementation "com.bluspring:modernnetworking-neoforge:1.0.1+1.21.1-neoforge"
+
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
@@ -133,6 +139,35 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+
+    // Please refer to the release tags for the latest version of Modern Networking.
+    // Any Minecraft version support will never be dropped from Modern Networking, so you can
+    // be comfortable in using the latest version. If anyone requests, I might also provide
+    // support for any older versions and/or snapshots as needed.
+
+
+    // ModernNetworking supports Minecraft versions in a much wider manner, where
+    // versions between 1.18.2 and 1.20.1 are able to be supported under one version.
+    // You may refer to the table below for the version support.
+
+
+
+    // This is the API. You would want this to get the sources for it, or if you want to
+    // create your own implementation, as the API is fully disconnected from Minecraft itself.
+    implementation("xyz.bluspring.modernnetworking:modernnetworking-api:1.2.0")
+
+    // The mod loader type. Valid types:
+    // - fabric
+    // - forge
+    // - neoforge (only on 1.20.4 and above!)
+
+
+    // This is the shared library for both modloaders. I recommend adding this for having sources data,
+    // even if you do not use a multiloader setup.
+    //modImplementation("xyz.bluspring.modernnetworking:modernnetworking-common:1.2.0+1.21.1")
+
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
